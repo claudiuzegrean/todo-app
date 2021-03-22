@@ -1,0 +1,24 @@
+<mat-form-field>
+  <label>
+    <input matInput placeholder="Add new task" #newTaskInput>
+  </label>
+</mat-form-field>
+<button
+  mat-raised-button
+  color="primary"
+  [disabled]="newTaskInput.value == ''"
+  (click)="addTask(newTaskInput.value); newTaskInput.value = ''"
+>Add</button>
+<mat-card *ngIf="tasks.length > 0">
+  <mat-list>
+    <mat-list-item *ngFor="let task of tasks;let i = index">
+      <mat-divider *ngIf="i != 0"></mat-divider>
+      <mat-slide-toggle (change)="toggle(task)" [checked]="!!task.done" color="primary">
+        <span [ngClass]="{done:task.done}">{{task.text}}</span>
+      </mat-slide-toggle>
+      <button  matTooltip="Delete task" matTooltipPosition="above" mat-icon-button (click)="removeTask(task)">
+        <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</mat-card>
